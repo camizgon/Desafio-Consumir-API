@@ -3,8 +3,6 @@
     <div class="card">
       <img :src="user.picture" alt="User photo">
       <p>{{ user.name }}</p>
-
-
       <textarea
         id="box-message"
         v-model="message"
@@ -81,5 +79,10 @@ p {
 button {
   width: 100%;
   margin-top: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button :hover{
+  background-color: #717171;
 }
 </style>
