@@ -1,26 +1,66 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <section class="chat-container">
+    <UserInput
+      v-for="(user, index) in misFunciones"
+      :key="index"
+      :user="user"
+      @send-message="addMessage"
+    />
+    <ChatApp :messages="messages" />
+  </section>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios';
+import UserInput from './components/UserInput.vue';
+import ChatApp from './components/ChatApp.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    UserInput,
+    ChatApp
+  },
+  data() {
+    return {
+      rawUsers: [],
+      messages: []
+    };
+  },
+  async mounted() {
+    try {
+      const { data: data1 } = await axios.get("https://randomuser.me/api/");
+      const { data: data2 } = await axios.get("https://randomuser.me/api/");
+      this.rawUsers = [data1.results[0], data2.results[0]];
+    } catch (error) {
+      console.log(error);
+      alert("Error en la petición");
+    }
+  },
+  computed: {
+    misFunciones() {
+      return this.rawUsers.map(user => ({
+        name: `${user.name.first} ${user.name.last}`,
+        email: user.email,
+        picture: user.picture.large
+      }));
+    }
+  },
+  methods: {
+    addMessage(message) {
+      this.messages.push(message);
+    }
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.chat-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
 }
 </style>
+
+
