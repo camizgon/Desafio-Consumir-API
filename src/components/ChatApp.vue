@@ -36,7 +36,7 @@ export default {
 .user-message {
   display:flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 
 }
 </style>

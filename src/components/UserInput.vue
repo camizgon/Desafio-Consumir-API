@@ -1,9 +1,16 @@
 <template>
   <div class="user-input">
     <div class="card">
-    <img :src="user.picture" alt="User photo">
-    <p>{{ user.name }}</p>
-      <input id="box-message" v-model="message" placeholder="Escribir Mensaje" @keyup.enter="sendMessage">
+      <img :src="user.picture" alt="User photo">
+      <p>{{ user.name }}</p>
+
+
+      <textarea
+        id="box-message"
+        v-model="message"
+        placeholder="Escribir Mensaje"
+        @keyup.enter="sendMessage">
+</textarea>
       <input id="box-color" type="color" v-model="color">
       <button @click="sendMessage">Envíar</button>
     </div>
@@ -47,12 +54,18 @@ export default {
   padding-left: 50px;
   padding-right: 50px;
 }
+
 .user-input img {
   width: 100%;
   margin-right: 10px;
-  box-shadow: 2px 2px 2px 2px #393d42 ;
+  box-shadow: 2px 2px 2px 2px #393d42;
   border-radius: 5px;
   object-fit: cover;
+}
+
+p {
+  text-align: center;
+  font-weight: bolder;
 }
 
 #box-message {
@@ -60,12 +73,12 @@ export default {
   height: 105px;
 }
 
-#box-color{
+#box-color {
   width: 100%;
   margin-top: 10px;
 }
 
-button{
+button {
   width: 100%;
   margin-top: 10px;
 }
